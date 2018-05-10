@@ -1,0 +1,4 @@
+A ="postgres://dyqpeqyeiurdhq:8badb580880c049e90bb4afe7f36af39b6e7484d387de7653c321569394e498d@ec2-23-23-245-89.compute-1.amazonaws.com:5432/d2gmncd69hhm4g"
+
+B = 'YE+eI2SkIoQoQ8VCUqPU5lxvf6fwgf6AWATMMfWc30NWZ79YT2uxTYYhZG3H3cHLVCsIp9zIFqGsYYdGnWMqJwyQEX6q6iY6TqnhqvqkSjek4zyIDNvOjtIisyv5BT95rb9baUrEsx0VTSJAdPJTrAdB04t89/1O/w1cDnyilFU='
+C = 'e1eed68e903e9f3a3767e8b338282181'
