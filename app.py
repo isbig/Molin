@@ -18,6 +18,8 @@ import psycopg2
 from chatterbot import ChatBot
 import logging
 
+import Molinway
+
 logging.basicConfig(level=logging.INFO)
 
 chatbot = ChatBot(
