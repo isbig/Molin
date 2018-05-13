@@ -5,4 +5,10 @@ I creator Molin from sample code from https://github.com/line/line-bot-sdk-pytho
 
 ![alt text](https://github.com/isbig/Molin/blob/master/hkkuA6_-ov.png?raw=true)
 
+or click at line botton
+
 <a href="https://line.me/R/ti/p/%40zqg6905x"><img height="36" border="0" alt="เพิ่มเพื่อน" src="https://scdn.line-apps.com/n/line_add_friends/btn/en.png"></a>
+
+or search my id 
+
+@zqg6905x
