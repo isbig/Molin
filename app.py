@@ -18,6 +18,11 @@ import psycopg2
 from chatterbot import ChatBot
 import logging
 
+import os
+DATABASE_URL = os.getenv('DATABASE_URL')
+A = os.getenv('A')
+B = os.getenv('B')
+
 logging.basicConfig(level=logging.INFO)
 
 chatbot = ChatBot(
