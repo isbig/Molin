@@ -20,8 +20,8 @@ import logging
 
 import os
 DATABASE_URL = os.getenv('DATABASE_URL')
-A = os.getenv('A')
-B = os.getenv('B')
+AccessToken = os.getenv('AccessToken')
+ChannelSecret = os.getenv('ChannelSecret')
 
 logging.basicConfig(level=logging.INFO)
 
@@ -39,8 +39,8 @@ chatbot.logger.info('Trained database generated successfully!')
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi(A)
-handler = WebhookHandler(B)
+line_bot_api = LineBotApi(AccessToken)
+handler = WebhookHandler(ChannelSecret)
 
 
 @app.route("/callback", methods=['POST'])
