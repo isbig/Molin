@@ -69,6 +69,23 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text=a))
 
+    def inputmes(brin):
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+        
+        cur.execute("CREATE TABLE IF NOT EXISTS inputmes (word text, time TIMESTAMP NOT NULL);")
+
+        cur.execute("INSERT INTO inputmes (word, time) VALUES (%(str)s, NOW());", {'str':brin})
+        conn.commit()
+        
+        cur.close()
+        conn.close()
+    
+    n = event.message.text
+    inputmes(n)
     
 if __name__ == "__main__":
     app.run()
