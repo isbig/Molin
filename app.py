@@ -130,12 +130,12 @@ def handle_message(event):
     n = event.message.text
     
     inputmes(n) #สิ่งที่เราตอบไป ต้องอยู่หลัง
-    
-    
     mo = usinputoutcur() #มาจาก inputoutmes อยู่หน้า
     lin = usinputcur() #มาจาก inputmes อยู่หลัง
     cvst = [mo, lin]
     chatbot.train(cvst)
+    
+
     
     a = str(chatbot.get_response(event.message.text))
     line_bot_api.reply_message(
