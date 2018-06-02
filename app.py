@@ -128,18 +128,20 @@ def handle_message(event):
         return n
     
     n = event.message.text
+    a = str(chatbot.get_response(event.message.text))
     inputmes(n)
+    inputoutmes(a)
     
     mo = usinputoutcur()
     lin = usinputcur()
     cvst = [mo, lin]
     chatbot.train(cvst)
     
-    a = str(chatbot.get_response(event.message.text))
+    
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=a))
-    inputoutmes(a)
+    
 
     
 if __name__ == "__main__":
