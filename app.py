@@ -37,10 +37,9 @@ with open("molincon.txt") as file:
     for line in file:
         # The rstrip method gets rid of the "\n" at the end of each line
         lines.append(line.rstrip().split(","))
-        a = lines.tolist()
         
 chatbot.set_trainer(ListTrainer)
-chatbot.train(a)
+chatbot.train(lines)
 
 chatbot.logger.info('Trained database generated successfully!')
 
