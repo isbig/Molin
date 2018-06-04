@@ -31,7 +31,7 @@ chatbot = ChatBot(
     database_uri=DATABASE_URL,
     storage_adapter="chatterbot.storage.SQLStorageAdapter")
 
-def inputtamtop(brin):
+def inputtamtop():
     try:
         conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     except:
