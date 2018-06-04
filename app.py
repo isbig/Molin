@@ -40,7 +40,6 @@ def inputtamtop(brin):
         
     cur.execute("CREATE TABLE IF NOT EXISTS inputtamtop (tam text, time TIMESTAMP NOT NULL);")
 
-    cur.execute("INSERT INTO inputtamtop (tam, time) VALUES (%(str)s, NOW());", {'str':brin})
     conn.commit()
         
     cur.close()
@@ -66,7 +65,7 @@ def usinputtamtop():
     cur.close()
     conn.close()
 
-inputtamtop("เบิกบาน")
+inputtamtop()
 usinputtamtop()
 
 chatbot.logger.info('Trained database generated successfully!')
