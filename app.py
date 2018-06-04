@@ -57,20 +57,16 @@ def usinputtamtop():
     cur.execute("SELECT tam FROM inputtamtop ORDER BY time;")
     m = cur.fetchall()
     na = []
+    chatbot.set_trainer(ListTrainer)
     for n in m:
         r = str(n)[3:-4]
-        na = na.append(r)
-        return na
-    conn.commit()
-        
+        chatbot.train([r])
+    conn.commit()       
     cur.close()
     conn.close()
-    return na
 
 inputtamtop("เบิกบาน")
-f = usinputtamtop()
-chatbot.set_trainer(ListTrainer)
-chatbot.train(f)
+usinputtamtop()
 
 chatbot.logger.info('Trained database generated successfully!')
 
