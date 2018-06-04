@@ -93,13 +93,13 @@ def handle_message(event):
         na = []
         for n in m:
             n = str(n)[3:-4]
-            na = na.append(n)
-            return na
+            I = na.append(n)
+            return I
         conn.commit()
         
         cur.close()
         conn.close()
-        return na
+        return I
     
     n = event.message.text
     
