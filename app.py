@@ -58,14 +58,14 @@ def usinputtamtop():
     m = cur.fetchall()
     na = []
     for n in m:
-        n = str(n)[3:-4]
-        I = na.append(n)
-        return I
+        r = str(n)[3:-4]
+        na = na.append(r)
+        return na
     conn.commit()
         
     cur.close()
     conn.close()
-    return I
+    return na
 
 inputtamtop("เบิกบาน")
 f = usinputtamtop()
