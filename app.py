@@ -31,15 +31,11 @@ chatbot = ChatBot(
     database_uri=DATABASE_URL,
     storage_adapter="chatterbot.storage.SQLStorageAdapter")
 
-#code from https://stackoverflow.com/questions/18448847/import-txt-file-and-having-each-line-as-a-list
-with open("molincon.txt") as file:
-    lines = []
-    for line in file:
-        # The rstrip method gets rid of the "\n" at the end of each line
-        lines.append(line.rstrip().split(","))
+with open('molincon.txt', 'r') as f:
+    myNames = [line.strip() for line in f]
         
 chatbot.set_trainer(ListTrainer)
-chatbot.train(lines)
+chatbot.train(myNames)
 
 chatbot.logger.info('Trained database generated successfully!')
 
