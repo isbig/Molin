@@ -31,9 +31,15 @@ chatbot = ChatBot(
     database_uri=DATABASE_URL,
     storage_adapter="chatterbot.storage.SQLStorageAdapter")
 
-conversation = ["สวัสดี", "ทำอะไรอยู่", "กินอะไรหรือยัง", "นั่งเล่น", "กินแล้ว", "ฝันดี"]
+#code from https://stackoverflow.com/questions/18448847/import-txt-file-and-having-each-line-as-a-list
+with open("molincon.txt") as file:
+    lines = []
+    for line in file:
+        # The rstrip method gets rid of the "\n" at the end of each line
+        lines.append(line.rstrip().split(","))
+        
 chatbot.set_trainer(ListTrainer)
-chatbot.train(conversation)
+chatbot.train(lines)
 
 chatbot.logger.info('Trained database generated successfully!')
 
