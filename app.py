@@ -134,7 +134,7 @@ def handle_message(event):
             print("I am unable to connect to the database")
         cur = conn.cursor()
         
-        cur.execute("CREATE TABLE IF NOT EXISTS inputtamtop (tam text, top text, time TIMESTAMP NOT NULL;")
+        cur.execute("CREATE TABLE IF NOT EXISTS inputtamtop (tam text, top text, time TIMESTAMP NOT NULL);")
 
         cur.execute("INSERT INTO inputtamtop (tam, top) VALUES (%(str)s, %(top)s, NOW());", {'str':brin, 'top':mo})
         conn.commit()
