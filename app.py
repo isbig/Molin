@@ -136,7 +136,7 @@ def handle_message(event):
         
         cur.execute("CREATE TABLE IF NOT EXISTS inputtamtop (tam text, top text, time TIMESTAMP NOT NULL);")
 
-        cur.execute("INSERT INTO inputtamtop (tam, top) VALUES (%(str)s, %(top)s, NOW());", {'str':brin, 'top':mo})
+        cur.execute("INSERT INTO inputtamtop (tam, top, time) VALUES (%(str)s, %(top)s, NOW());", {'str':brin, 'top':mo})
         conn.commit()
         
         cur.close()
