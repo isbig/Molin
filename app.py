@@ -17,7 +17,6 @@ import psycopg2
 # -*- coding: utf-8 -*-
 from chatterbot import ChatBot
 import logging
-import molincon
 
 import os
 DATABASE_URL = os.getenv('DATABASE_URL')
