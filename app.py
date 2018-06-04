@@ -32,7 +32,7 @@ chatbot = ChatBot(
     storage_adapter="chatterbot.storage.SQLStorageAdapter")
 
 #code from https://stackoverflow.com/questions/18448847/import-txt-file-and-having-each-line-as-a-list
-with open("molincon") as file:
+with open("molincon.txt") as file:
     lines = []
     for line in file:
         # The rstrip method gets rid of the "\n" at the end of each line
