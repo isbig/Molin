@@ -31,9 +31,46 @@ chatbot = ChatBot(
     database_uri=DATABASE_URL,
     storage_adapter="chatterbot.storage.SQLStorageAdapter")
 
-conversation = ["สวัสดี", "ทำอะไรอยู่", "กินอะไรหรือยัง", "นั่งเล่น", "กินแล้ว", "ฝันดี"]
+def inputtamtop(brin):
+    try:
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    except:
+        print("I am unable to connect to the database")
+    cur = conn.cursor()
+        
+    cur.execute("CREATE TABLE IF NOT EXISTS inputtamtop (tam text, time TIMESTAMP NOT NULL);")
+
+    cur.execute("INSERT INTO inputtamtop (tam, time) VALUES (%(str)s, NOW());", {'str':brin})
+    conn.commit()
+        
+    cur.close()
+    conn.close()
+    
+def usinputtamtop():
+    try:
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    except:
+        print("I am unable to connect to the database")
+    cur = conn.cursor()
+        
+    #from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
+    cur.execute("SELECT tam FROM inputtamtop ORDER BY time;")
+    m = cur.fetchall()
+    na = []
+    for n in m:
+        n = str(n)[3:-4]
+        I = na.append(n)
+        return I
+    conn.commit()
+        
+    cur.close()
+    conn.close()
+    return I
+
+inputtamtop("เบิกบาน")
+f = usinputtamtop()
 chatbot.set_trainer(ListTrainer)
-chatbot.train(conversation)
+chatbot.train(f)
 
 chatbot.logger.info('Trained database generated successfully!')
 
@@ -64,50 +101,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    
-    def inputtamtop(brin):
-        try:
-            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-        except:
-            print("I am unable to connect to the database")
-        cur = conn.cursor()
-        
-        cur.execute("CREATE TABLE IF NOT EXISTS inputtamtop (tam text, time TIMESTAMP NOT NULL);")
 
-        cur.execute("INSERT INTO inputtamtop (tam, time) VALUES (%(str)s, NOW());", {'str':brin})
-        conn.commit()
-        
-        cur.close()
-        conn.close()
-    
-    def usinputtamtop():
-        try:
-            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-        except:
-            print("I am unable to connect to the database")
-        cur = conn.cursor()
-        
-        #from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
-        cur.execute("SELECT tam FROM inputtamtop ORDER BY time;")
-        m = cur.fetchall()
-        na = []
-        for n in m:
-            n = str(n)[3:-4]
-            I = na.append(n)
-            return I
-        conn.commit()
-        
-        cur.close()
-        conn.close()
-        return I
-    
-    n = event.message.text
-    
-    inputtamtop("เบิกบาน")
-    
-    f = usinputtamtop()
-    chatbot.train(f)
-    
     a = str(chatbot.get_response(event.message.text))
     line_bot_api.reply_message(
         event.reply_token,
