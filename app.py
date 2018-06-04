@@ -127,13 +127,28 @@ def handle_message(event):
         conn.close()
         return n
     
+    def inputtamtop(brin, mo):
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+        
+        cur.execute("CREATE TABLE IF NOT EXISTS inputtamtop (tam text, top text, time TIMESTAMP NOT NULL;")
+
+        cur.execute("INSERT INTO inputtamtop (tam, top) VALUES (%(str)s, %(top)s, NOW());", {'str':brin, 'top':mo})
+        conn.commit()
+        
+        cur.close()
+        conn.close()
+    
     n = event.message.text
     
     inputmes(n) #สิ่งที่เราตอบไป ต้องอยู่หลัง
     mo = usinputoutcur() #มาจาก inputoutmes อยู่หน้า
     lin = usinputcur() #มาจาก inputmes อยู่หลัง
     cvst = [mo, lin]
-    chatbot.train(cvst)
+    inputtamtop(mo, lin)
     
 
     
