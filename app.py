@@ -60,7 +60,8 @@ def usinputtamtop():
     chatbot.set_trainer(ListTrainer)
     for n in m:
         r = str(n)[3:-4]
-        chatbot.train([r])
+        
+    chatbot.train(m)     
     conn.commit()       
     cur.close()
     conn.close()
