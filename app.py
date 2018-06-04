@@ -73,9 +73,7 @@ def handle_message(event):
     a = str(chatbot.get_response(event.message.text))
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = a + event.message.text))
-
-chatbot.train([event.message.text, a])
+        TextSendMessage(text = a))
     
 if __name__ == "__main__":
     app.run()
