@@ -163,6 +163,8 @@ def handle_message(event):
         
         p = [n,b]
         
+        chatbot.train(p)
+        
         cur.close()
         conn.close()
         return p
@@ -176,7 +178,7 @@ def handle_message(event):
     cvst = [mo, lin]
     inputtamtop(mo, lin)
     
-    g = usinputtamtop()
+    g = str(usinputtamtop())
     
     #a = str(chatbot.get_response(event.message.text))
     a = g
