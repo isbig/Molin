@@ -150,20 +150,23 @@ def handle_message(event):
         cur = conn.cursor()
         
         #from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
-        cur.execute("SELECT tam FROM inputtamtop ORDER BY time DESC LIMIT 1;")
+        cur.execute("SELECT tam FROM inputtamtop ORDER BY time;")
         m = cur.fetchall()
         n = str(m)[3:-4]
         conn.commit()
 
         #from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
-        cur.execute("SELECT top FROM inputtamtop ORDER BY time DESC LIMIT 1;")
+        cur.execute("SELECT top FROM inputtamtop ORDER BY time;")
         h = cur.fetchall()
         b = str(h)[3:-4]
         conn.commit()
         
-        p = [n,b]
+        for y, u in m,h:
+            chatbot.train([y, u])  
         
-        chatbot.train(p)
+        #p = [n,b]
+        
+        #chatbot.train(p)
         
         cur.close()
         conn.close()
