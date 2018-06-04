@@ -31,6 +31,7 @@ chatbot = ChatBot(
     database_uri=DATABASE_URL,
     storage_adapter="chatterbot.storage.SQLStorageAdapter")
 
+#code from https://stackoverflow.com/questions/3142054/python-add-items-from-txt-file-into-a-list
 with open('molincon.txt', 'r') as f:
     myNames = [line.strip() for line in f]
         
