@@ -167,7 +167,6 @@ def handle_message(event):
         
         cur.close()
         conn.close()
-        return p
     
     
     n = event.message.text
@@ -178,10 +177,9 @@ def handle_message(event):
     cvst = [mo, lin]
     inputtamtop(mo, lin)
     
-    g = str(usinputtamtop())
+    usinputtamtop()
     
-    #a = str(chatbot.get_response(event.message.text))
-    a = g
+    a = str(chatbot.get_response(event.message.text))
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=a))
