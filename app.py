@@ -38,7 +38,7 @@ def inputtamtop():
         print("I am unable to connect to the database")
     cur = conn.cursor()
         
-    cur.execute("CREATE TABLE IF NOT EXISTS inputtamtop (tam text, time TIMESTAMP NOT NULL);")
+    cur.execute("CREATE TABLE IF NOT EXISTS inputtamtop (tam text);")
 
     conn.commit()
         
@@ -53,7 +53,7 @@ def usinputtamtop():
     cur = conn.cursor()
         
     #from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
-    cur.execute("SELECT tam FROM inputtamtop ORDER BY time;")
+    cur.execute("SELECT tam FROM inputtamtop;")
     m = cur.fetchall()
     na = []
     chatbot.set_trainer(ListTrainer)
