@@ -142,6 +142,32 @@ def handle_message(event):
         cur.close()
         conn.close()
     
+    def usinputtamtop():
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+        
+        #from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
+        cur.execute("SELECT tam FROM inputtamtop ORDER BY time DESC LIMIT 1;")
+        m = cur.fetchall()
+        n = str(m)[3:-4]
+        conn.commit()
+
+        #from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
+        cur.execute("SELECT top FROM inputtamtop ORDER BY time DESC LIMIT 1;")
+        h = cur.fetchall()
+        b = str(h)[3:-4]
+        conn.commit()
+        
+        p = [n,b]
+        
+        cur.close()
+        conn.close()
+        return p
+    
+    
     n = event.message.text
     
     inputmes(n) #สิ่งที่เราตอบไป ต้องอยู่หลัง
@@ -150,9 +176,10 @@ def handle_message(event):
     cvst = [mo, lin]
     inputtamtop(mo, lin)
     
-
+    g = usinputtamtop()
     
-    a = str(chatbot.get_response(event.message.text))
+    #a = str(chatbot.get_response(event.message.text))
+    a = g
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=a))
