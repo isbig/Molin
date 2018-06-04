@@ -96,18 +96,17 @@ def handle_message(event):
             na = na.append(n)
             return na
         conn.commit()
-    
-        chatbot.train(na)  
         
         cur.close()
         conn.close()
-    
+        return na
     
     n = event.message.text
     
     inputtamtop("เบิกบาน")
     
-    usinputtamtop()
+    f = usinputtamtop()
+    chatbot.train(f)
     
     a = str(chatbot.get_response(event.message.text))
     line_bot_api.reply_message(
