@@ -65,7 +65,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     # a = str(chatbot.get_response(event.message.text))
-    a = str(event.replyToken.timestamp)
+    a = str(event.timestamp)
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text = a))
