@@ -9,13 +9,15 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, FileMessage
 )
-from chatterbot import ChatBot
-from chatterbot.trainers import (ListTrainer, TwitterTrainer)
+
+
+# from chatterbot import ChatBot
+# from chatterbot.trainers import (ListTrainer, TwitterTrainer)
 
 import psycopg2
 
 # -*- coding: utf-8 -*-
-from chatterbot import ChatBot
+# from chatterbot import ChatBot
 import logging
 
 import os
@@ -25,6 +27,7 @@ ChannelSecret = os.getenv('ChannelSecret')
 
 logging.basicConfig(level=logging.INFO)
 
+"""
 chatbot = ChatBot(
     "molin",
     trainer = 'chatterbot.trainers.ListTrainer',
@@ -36,6 +39,7 @@ chatbot.set_trainer(ListTrainer)
 chatbot.train(conversation)
 
 chatbot.logger.info('Trained database generated successfully!')
+"""
 
 app = Flask(__name__)
 
