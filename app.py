@@ -46,16 +46,15 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    def inputmes(brin):
+    def inputmes(sender, receiver, passage, text):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
             print("I am unable to connect to the database")
         cur = conn.cursor()
 
-        cur.execute("CREATE TABLE IF NOT EXISTS inputmes (word text, time TIMESTAMP NOT NULL);")
-
-        cur.execute("INSERT INTO inputmes (word, time) VALUES (%(str)s, NOW());", {'str': brin})
+        cur.execute("INSERT INTO inputmes (sender, receiver, type, word, time) VALUES (%(sender)s, %(receiver)s, "
+                    "%(type)s, %(word)s, NOW());", {'sender': sender, 'receiver': receiver, 'type': passage, 'word': text})
         conn.commit()
 
         cur.close()
@@ -77,63 +76,38 @@ def handle_message(event):
         conn.close()
         return n
 
-    def inputtamtop(brin, mo):
+    def friends(id, display_name, status_message):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
             print("I am unable to connect to the database")
         cur = conn.cursor()
 
-        cur.execute("CREATE TABLE IF NOT EXISTS inputtamtop (tam text, top text, time TIMESTAMP NOT NULL);")
-
-        cur.execute("INSERT INTO inputtamtop (tam, top, time) VALUES (%(str)s, %(top)s, NOW());",
-                    {'str': brin, 'top': mo})
+        cur.execute("INSERT INTO friends (id, display_name, status_message, time) VALUES (%(id)s, %(display_name)s, "
+                    "%(status_message)s, NOW());", {'id': id, 'display_name': display_name, 'status_message': status_message})
         conn.commit()
 
         cur.close()
         conn.close()
 
-    def usinputtamtop():
-        try:
-            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-        except:
-            print("I am unable to connect to the database")
-        cur = conn.cursor()
+    n0 = event.message.text
+    n1 = event.message.type
+    n2 = event.source.user_id
+    inputmes(n2, "me", n1, n0)
 
-        # from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
-        cur.execute("SELECT tam FROM inputtamtop ORDER BY time;")
-        m = cur.fetchall()
-        na = []
-        for n in m:
-            n = str(n)[3:-4]
-            na = na.append(n)
-            return na
-        conn.commit()
+    profile = line_bot_api.get_profile(n2)
+    m0 = profile.display_name
+    m1 = profile.status_message
+    friends(n2, m0, m1)
 
-        # from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
-        cur.execute("SELECT top FROM inputtamtop ORDER BY time;")
-        h = cur.fetchall()
-        ba = []
-        for o in h:
-            b = str(o)[3:-4]
-            ba = ba.append(b)
-            return ba
-        conn.commit()
-
-        for y, u in na, ba:
-            chatbot.train([y, u])
-
-        cur.close()
-        conn.close()
-
-    n = event.message.text
-
-    inputmes(n)
-
-    a = [TextSendMessage(text=n), TextSendMessage(text='เป็นข้อความที่เธอส่งมา')]
+    o_list = [n0, "เธอส่งมา"]
+    o_list_tsm = []
+    for text in o_list:
+        o_list_tsm.append(TextSendMessage(text=text))
+    o_send_text = o_list_tsm
     line_bot_api.reply_message(
         event.reply_token,
-        a)
+        o_send_text)
     inputmes(a)  # คำถาม ต้องอยู่หน้า แต่เก็บค่าทีหลัง
 
 
