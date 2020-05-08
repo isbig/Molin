@@ -77,37 +77,6 @@ def handle_message(event):
         conn.close()
         return n
 
-    def inputoutmes(brin):
-        try:
-            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-        except:
-            print("I am unable to connect to the database")
-        cur = conn.cursor()
-
-        cur.execute("CREATE TABLE IF NOT EXISTS inputoutmes (word text, time TIMESTAMP NOT NULL);")
-
-        cur.execute("INSERT INTO inputoutmes (word, time) VALUES (%(str)s, NOW());", {'str': brin})
-        conn.commit()
-
-        cur.close()
-        conn.close()
-
-    def usinputoutcur():
-        try:
-            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-        except:
-            print("I am unable to connect to the database")
-        cur = conn.cursor()
-
-        # from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
-        cur.execute("SELECT word FROM inputoutmes ORDER BY time DESC LIMIT 1;")
-        m = cur.fetchall()
-        n = str(m)[3:-4]
-        conn.commit()
-        cur.close()
-        conn.close()
-        return n
-
     def inputtamtop(brin, mo):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -154,28 +123,18 @@ def handle_message(event):
         for y, u in na, ba:
             chatbot.train([y, u])
 
-            # p = [n,b]
-
-        # chatbot.train(p)
-
         cur.close()
         conn.close()
 
     n = event.message.text
 
-    inputmes(n)  # สิ่งที่เราตอบไป ต้องอยู่หลัง
-    mo = usinputoutcur()  # มาจาก inputoutmes อยู่หน้า
-    lin = usinputcur()  # มาจาก inputmes อยู่หลัง
-    cvst = [mo, lin]
-    inputtamtop(mo, lin)
+    inputmes(n)
 
-    usinputtamtop()
-
-    a = event.message.text
+    a = ["ยังตอบไม่ได้", "กรุณารอ"]
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=a))
-    inputoutmes(a)  # คำถาม ต้องอยู่หน้า แต่เก็บค่าทีหลัง
+    inputmes(a)  # คำถาม ต้องอยู่หน้า แต่เก็บค่าทีหลัง
 
 
 if __name__ == "__main__":
