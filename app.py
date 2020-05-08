@@ -76,15 +76,15 @@ def handle_message(event):
         conn.close()
         return n
 
-    def friends(id, display_name, status_message):
+    def friends(user_id, display_name, status_message):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
             print("I am unable to connect to the database")
         cur = conn.cursor()
 
-        cur.execute("INSERT INTO friends (id, display_name, status_message, time) VALUES (%(id)s, %(display_name)s, "
-                    "%(status_message)s, NOW());", {'id': id, 'display_name': display_name, 'status_message': status_message})
+        cur.execute("INSERT INTO friends (user_id, display_name, status_message, time) VALUES (%(id)s, "
+                    "%(display_name)s, %(status_message)s, NOW());", {'user_id': user_id, 'display_name': display_name, 'status_message': status_message})
         conn.commit()
 
         cur.close()
