@@ -101,6 +101,8 @@ def handle_message(event):
     friends(n2, m0, m1)
 
     o_list = [n0, "เธอส่งมา"]
+    for word in o_list:
+        inputmes("me", n2, "no need to know", word)
     o_list_tsm = []
     for text in o_list:
         o_list_tsm.append(TextSendMessage(text=text))
@@ -108,7 +110,6 @@ def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
         o_send_text)
-    inputmes(a)  # คำถาม ต้องอยู่หน้า แต่เก็บค่าทีหลัง
 
 
 if __name__ == "__main__":
