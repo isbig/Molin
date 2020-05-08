@@ -83,7 +83,7 @@ def handle_message(event):
             print("I am unable to connect to the database")
         cur = conn.cursor()
 
-        cur.execute("INSERT INTO friends (user_id, display_name, status_message, time) VALUES (%(id)s, "
+        cur.execute("INSERT INTO friends (user_id, display_name, status_message, time) VALUES (%(user_id)s, "
                     "%(display_name)s, %(status_message)s, NOW());", {'user_id': user_id, 'display_name': display_name, 'status_message': status_message})
         conn.commit()
 
