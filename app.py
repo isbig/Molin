@@ -9,8 +9,6 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, FileMessage
 )
-from chatterbot import ChatBot
-from chatterbot.trainers import (ListTrainer, TwitterTrainer)
 
 import psycopg2
 
