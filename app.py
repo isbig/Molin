@@ -130,10 +130,10 @@ def handle_message(event):
 
     inputmes(n)
 
-    a = ["ยังตอบไม่ได้", "กรุณารอ"]
+    a = [TextSendMessage(text=n), TextSendMessage(text='เป็นข้อความที่เธอส่งมา')]
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=a))
+        a)
     inputmes(a)  # คำถาม ต้องอยู่หน้า แต่เก็บค่าทีหลัง
 
 
