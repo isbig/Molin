@@ -15,28 +15,11 @@ from chatterbot.trainers import (ListTrainer, TwitterTrainer)
 import psycopg2
 
 # -*- coding: utf-8 -*-
-from chatterbot import ChatBot
-import logging
-
 import os
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 AccessToken = os.getenv('AccessToken')
 ChannelSecret = os.getenv('ChannelSecret')
-
-logging.basicConfig(level=logging.INFO)
-
-chatbot = ChatBot(
-    "molin",
-    trainer='chatterbot.trainers.ListTrainer',
-    database_uri=DATABASE_URL,
-    storage_adapter="chatterbot.storage.SQLStorageAdapter")
-
-conversation = ["สวัสดี", "ทำอะไรอยู่", "กินอะไรหรือยัง", "นั่งเล่น", "กินแล้ว", "ฝันดี"]
-chatbot.set_trainer(ListTrainer)
-chatbot.train(conversation)
-
-chatbot.logger.info('Trained database generated successfully!')
 
 app = Flask(__name__)
 
@@ -190,7 +173,7 @@ def handle_message(event):
 
     usinputtamtop()
 
-    a = str(chatbot.get_response(event.message.text))
+    a = event.message.text
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=a))
