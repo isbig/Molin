@@ -148,10 +148,12 @@ def handle_message(event):
     noan = find_mess(n2, "me", 5, 1)
     h1, h2, h3, h4, h5, h6, h7 = noan[0]
     o_list = ['ทดสอบ', noan[0][3]]
+    ared = []
     for s in range(5):
         if s != 4:
             if noan[s][6] == noan[s+1][6]:
                 o_list.append(noan[s+1][3])
+                ared.append(noan[s+1][4])
             else:
                 pass
         else:
@@ -168,19 +170,14 @@ def handle_message(event):
     else:
         pass
 
+    # คำที่ส่งไปแล้ว
     for word in o_list:
         now = datetime.datetime.now(tz=tz)
         inputmes("me", n2, "no need to know", word, now, 'no')
 
-    not_ans_yet = []
-    for n in range(5):
-        if noan[n][0] == n2 and noan[n][6] != 'answered':
-            not_ans_yet.append(noan[n][3])
-            # ได้ประโยคที่เรายังไม่ตอบมา พอได้มาก็เลเบลว่าตอบแล้ว โดยใช้ค้นหา timestamp ที่ตรงกันให้ inputmes
-            print(nee2[n][4])
-            answered_text('answered', nee2[n][4])
-        else:
-            pass
+    # คำที่เอาไปวิเคราะห์แล้ว
+    for n in ared:
+        answered_text('answered', n)
 
 
 if __name__ == "__main__":
