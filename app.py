@@ -82,7 +82,7 @@ def handle_message(event):
         conn.commit()
         cur.close()
         conn.close()
-        return n
+        return m
 
     def friends(user_id, display_name, status_message):
         try:
