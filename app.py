@@ -13,6 +13,7 @@ from linebot.models import (
 import psycopg2
 import datetime
 import pytz
+import time
 
 # -*- coding: utf-8 -*-
 import os
@@ -114,18 +115,30 @@ def handle_message(event):
     friends(n2, m0, m1)
 
     print(find_mess(n2))
+    e1, e2, e3, e4, e5, e6 = find_mess(n2)[0]
+    print(e1)
+    print(e2)
+    print(e3)
+    print(e4)
+    print(e5)
+    print(e6)
+    time.sleep(5)
+    h1, h2, h3, h4, h5, h6 = find_mess(n2)[0]
 
-    o_list = [n0, "เธอส่งมา"]
-    for word in o_list:
-        now = datetime.datetime.now(tz=tz)
-        inputmes("me", n2, "no need to know", word, now)
-    o_list_tsm = []
-    for text in o_list:
-        o_list_tsm.append(TextSendMessage(text=text))
-    o_send_text = o_list_tsm
-    line_bot_api.reply_message(
-        event.reply_token,
-        o_send_text)
+    if e5 == h5:
+        o_list = [n0, "เธอส่งมา"]
+        for word in o_list:
+            now = datetime.datetime.now(tz=tz)
+            inputmes("me", n2, "no need to know", word, now)
+        o_list_tsm = []
+        for text in o_list:
+            o_list_tsm.append(TextSendMessage(text=text))
+        o_send_text = o_list_tsm
+        line_bot_api.reply_message(
+            event.reply_token,
+            o_send_text)
+    else:
+        pass
 
 
 if __name__ == "__main__":
