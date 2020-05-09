@@ -115,6 +115,7 @@ def handle_message(event):
     friends(n2, m0, m1)
 
     nee = find_mess(n2)
+    print(type(nee))
     e1, e2, e3, e4, e5, e6 = nee[0]
     print(e1)
     print(e2)
