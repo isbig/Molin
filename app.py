@@ -144,15 +144,20 @@ def handle_message(event):
     print(e5)
     print(e6)
     time.sleep(2)
-    nee2 = find_mess(n2, "me", 5, 2)
-    print(str(nee2))
-    h1, h2, h3, h4, h5, h6, h7 = nee2[0]
+
+    noan = find_mess(n2, "me", 5, 1)
+    h1, h2, h3, h4, h5, h6, h7 = noan[0]
+    o_list = ['ทดสอบ', noan[0][3]]
+    for s in range(5):
+        if s != 4:
+            if noan[s][6] == noan[s+1][6]:
+                o_list.append(noan[s+1][3])
+            else:
+                pass
+        else:
+            pass
 
     if e5 == h5:
-        o_list = [str(not_ans_yet)[1:-1], "ยังไม่ตอบ"]
-        for word in o_list:
-            now = datetime.datetime.now(tz=tz)
-            inputmes("me", n2, "no need to know", word, now, 'no')
         o_list_tsm = []
         for text in o_list:
             o_list_tsm.append(TextSendMessage(text=text))
@@ -162,6 +167,10 @@ def handle_message(event):
             o_send_text)
     else:
         pass
+
+    for word in o_list:
+        now = datetime.datetime.now(tz=tz)
+        inputmes("me", n2, "no need to know", word, now, 'no')
 
     not_ans_yet = []
     for n in range(5):
