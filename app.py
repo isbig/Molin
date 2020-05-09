@@ -107,7 +107,8 @@ def handle_message(event):
 
     o_list = [n0, "เธอส่งมา"]
     for word in o_list:
-        inputmes("me", n2, "no need to know", word)
+        now = datetime.now()
+        inputmes("me", n2, "no need to know", word, now)
     o_list_tsm = []
     for text in o_list:
         o_list_tsm.append(TextSendMessage(text=text))
