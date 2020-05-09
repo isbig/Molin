@@ -49,7 +49,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    def inputmes(sender, receiver, passage, text, time_ln):
+    def inputmes(sender, receiver, passage, text, time_ln, ans_state):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
@@ -58,8 +58,8 @@ def handle_message(event):
 
         cur.execute("SET TIME ZONE 'Asia/Bangkok';")
 
-        cur.execute("INSERT INTO inputmes (sender, receiver, type, word, time_ln, time_pql) VALUES (%(sender)s, "
-                    "%(receiver)s, %(type)s, %(word)s, %(time_ln)s, NOW());", {'sender': sender, 'receiver': receiver, 'type': passage, 'word': text, 'time_ln': time_ln})
+        cur.execute("INSERT INTO inputmes (sender, receiver, type, word, time_ln, time_pql, ans_state) VALUES (%(sender)s, "
+                    "%(receiver)s, %(type)s, %(word)s, %(time_ln)s, NOW(), %(ans_state)s);", {'sender': sender, 'receiver': receiver, 'type': passage, 'word': text, 'time_ln': time_ln, 'ans_state': ans_state})
         conn.commit()
 
         cur.close()
@@ -103,6 +103,22 @@ def handle_message(event):
         cur.close()
         conn.close()
 
+    def answered_text(word, ts):
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+
+        cur.execute("UPDATE inputmes"
+                    "SET ans_state = %(str)s"
+                    "FROM inputmes"
+                    "WHERE time_pql = %(int)s;", {'str': word, 'int': ts})
+        conn.commit()
+
+        cur.close()
+        conn.close()
+
     # https://stackoverflow.com/questions/13866926/is-there-a-list-of-pytz-timezones
     tz = pytz.timezone('Asia/Bangkok')
 
@@ -112,7 +128,7 @@ def handle_message(event):
     n3 = event.timestamp
     # https://stackoverflow.com/questions/748491/how-do-i-create-a-datetime-in-python-from-milliseconds
     tln = datetime.datetime.fromtimestamp(n3 / 1000.0, tz=tz)
-    inputmes(n2, "me", n1, n0, tln)
+    inputmes(n2, "me", n1, n0, tln, 'no')
 
     profile = line_bot_api.get_profile(n2)
     m0 = profile.display_name
@@ -121,7 +137,7 @@ def handle_message(event):
 
     nee = find_mess(n2, "me", 5, 2)
     print(type(nee))
-    e1, e2, e3, e4, e5, e6 = nee[0]
+    e1, e2, e3, e4, e5, e6, e7 = nee[0]
     print(e1)
     print(e2)
     print(e3)
@@ -131,13 +147,22 @@ def handle_message(event):
     time.sleep(5)
     nee2 = find_mess(n2, "me", 5, 2)
     print(str(nee2))
-    h1, h2, h3, h4, h5, h6 = nee2[0]
+    h1, h2, h3, h4, h5, h6, h7 = nee2[0]
+
+    not_ans_yet = []
+    for n in range(5):
+        if nee2[n][0] == n2 and nee2[n][6] != 'answered':
+            not_ans_yet.append(nee2[n][2])
+            # ได้ประโยคที่เรายังไม่ตอบมา พอได้มาก็เลเบลว่าตอบแล้ว โดยใช้ค้นหา timestamp ที่ตรงกันให้ inputmes
+            answered_text('answered', nee2[n][5])
+        else:
+            pass
 
     if e5 == h5:
-        o_list = [n0, "เธอส่งมา"]
+        o_list = [str(not_ans_yet)[1:-1], "ยังไม่ตอบ"]
         for word in o_list:
             now = datetime.datetime.now(tz=tz)
-            inputmes("me", n2, "no need to know", word, now)
+            inputmes("me", n2, "no need to know", word, now, 'no')
         o_list_tsm = []
         for text in o_list:
             o_list_tsm.append(TextSendMessage(text=text))
