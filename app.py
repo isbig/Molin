@@ -75,7 +75,7 @@ def handle_message(event):
         cur.execute("SELECT * "
                     "FROM inputmes "
                     "WHERE sender = %(sender)s"
-                    "ORDER BY time DESC LIMIT 1;", {'sender': sender})
+                    "ORDER BY time_ln DESC LIMIT 1;", {'sender': sender})
         m = cur.fetchall()
         n = str(m)
         conn.commit()
