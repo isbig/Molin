@@ -46,7 +46,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    def inputmes(sender, receiver, passage, text):
+    def inputmes(sender, receiver, passage, text, time_ln):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
@@ -55,8 +55,8 @@ def handle_message(event):
 
         cur.execute("SET TIME ZONE 'Asia/Bangkok';")
 
-        cur.execute("INSERT INTO inputmes (sender, receiver, type, word, time_pql) VALUES (%(sender)s, "
-                    "%(receiver)s, %(type)s, %(word)s, NOW());", {'sender': sender, 'receiver': receiver, 'type': passage, 'word': text})
+        cur.execute("INSERT INTO inputmes (sender, receiver, type, word, time_ln, time_pql) VALUES (%(sender)s, "
+                    "%(receiver)s, %(type)s, %(word)s, %(time_ln)s, NOW());", {'sender': sender, 'receiver': receiver, 'type': passage, 'word': text, 'time_ln': time_ln})
         conn.commit()
 
         cur.close()
@@ -95,7 +95,8 @@ def handle_message(event):
     n0 = event.message.text
     n1 = event.message.type
     n2 = event.source.user_id
-    inputmes(n2, "me", n1, n0)
+    n3 = event.timestamp
+    inputmes(n2, "me", n1, n0, n3)
 
     profile = line_bot_api.get_profile(n2)
     m0 = profile.display_name
