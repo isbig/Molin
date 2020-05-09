@@ -55,8 +55,8 @@ def handle_message(event):
 
         cur.execute("SET TIME ZONE 'Asia/Bangkok';")
 
-        cur.execute("INSERT INTO inputmes (sender, receiver, type, word, time_pgql, date_pgql) VALUES (%(sender)s, %(receiver)s, "
-                    "%(type)s, %(word)s, NOW(), NOW());", {'sender': sender, 'receiver': receiver, 'type': passage, 'word': text})
+        cur.execute("INSERT INTO inputmes (sender, receiver, type, word, time_pql) VALUES (%(sender)s, "
+                    "%(receiver)s, %(type)s, %(word)s, NOW());", {'sender': sender, 'receiver': receiver, 'type': passage, 'word': text})
         conn.commit()
 
         cur.close()
