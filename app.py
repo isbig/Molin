@@ -111,8 +111,8 @@ def handle_message(event):
         cur = conn.cursor()
 
         cur.execute("UPDATE inputmes "
-                    "WHERE time_pql = %(int)s "
-                    "SET ans_state = %(looked)s;", {'looked': looked, 'int': ts})
+                    "SET ans_state = %(looked)s "
+                    "WHERE time_pql = %(int)s;", {'looked': looked, 'int': ts})
         conn.commit()
 
         cur.close()
