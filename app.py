@@ -114,8 +114,8 @@ def handle_message(event):
     m1 = profile.status_message
     friends(n2, m0, m1)
 
-    print(find_mess(n2))
-    e1, e2, e3, e4, e5, e6 = find_mess(n2)[0]
+    nee = find_mess(n2)
+    e1, e2, e3, e4, e5, e6 = nee[0]
     print(e1)
     print(e2)
     print(e3)
@@ -123,7 +123,8 @@ def handle_message(event):
     print(e5)
     print(e6)
     time.sleep(5)
-    h1, h2, h3, h4, h5, h6 = find_mess(n2)[0]
+    nee2 = find_mess(n2)
+    h1, h2, h3, h4, h5, h6 = nee2[0]
 
     if e5 == h5:
         o_list = [n0, "เธอส่งมา"]
