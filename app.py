@@ -174,8 +174,8 @@ def handle_message(event):
 
     not_ans_yet = []
     for n in range(5):
-        if nee2[n][0] == n2 and nee2[n][6] != 'answered':
-            not_ans_yet.append(nee2[n][3])
+        if noan[n][0] == n2 and noan[n][6] != 'answered':
+            not_ans_yet.append(noan[n][3])
             # ได้ประโยคที่เรายังไม่ตอบมา พอได้มาก็เลเบลว่าตอบแล้ว โดยใช้ค้นหา timestamp ที่ตรงกันให้ inputmes
             print(nee2[n][4])
             answered_text('answered', nee2[n][4])
