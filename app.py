@@ -12,6 +12,7 @@ from linebot.models import (
 
 import psycopg2
 import datetime
+import pytz
 
 # -*- coding: utf-8 -*-
 import os
@@ -93,11 +94,13 @@ def handle_message(event):
         cur.close()
         conn.close()
 
+    tz = pytz.timezone('Asia/Bangkok')
+
     n0 = event.message.text
     n1 = event.message.type
     n2 = event.source.user_id
     n3 = event.timestamp
-    tln = datetime.datetime.fromtimestamp(n3 / 1000.0)
+    tln = datetime.datetime.fromtimestamp(n3 / 1000.0, tz=tz)
     inputmes(n2, "me", n1, n0, tln)
 
     profile = line_bot_api.get_profile(n2)
@@ -107,7 +110,7 @@ def handle_message(event):
 
     o_list = [n0, "เธอส่งมา"]
     for word in o_list:
-        now = datetime.datetime.now()
+        now = datetime.datetime.now(tz=tz)
         inputmes("me", n2, "no need to know", word, now)
     o_list_tsm = []
     for text in o_list:
