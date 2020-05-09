@@ -103,7 +103,7 @@ def handle_message(event):
         cur.close()
         conn.close()
 
-    def answered_text(word, ts):
+    def answered_text(looked, ts):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
@@ -111,9 +111,8 @@ def handle_message(event):
         cur = conn.cursor()
 
         cur.execute("UPDATE inputmes"
-                    "SET ans_state = %(str)s"
-                    "FROM inputmes"
-                    "WHERE time_pql = %(int)s;", {'str': word, 'int': ts})
+                    "SET ans_state = %(looked)s"
+                    "WHERE time_pql = %(int)s;", {'looked': looked, 'int': ts})
         conn.commit()
 
         cur.close()
