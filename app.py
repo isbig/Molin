@@ -11,6 +11,7 @@ from linebot.models import (
 )
 
 import psycopg2
+import datetime
 
 # -*- coding: utf-8 -*-
 import os
@@ -96,7 +97,8 @@ def handle_message(event):
     n1 = event.message.type
     n2 = event.source.user_id
     n3 = event.timestamp
-    inputmes(n2, "me", n1, n0, n3)
+    tln = datetime.datetime.fromtimestamp(n3 / 1000.0)
+    inputmes(n2, "me", n1, n0, tln)
 
     profile = line_bot_api.get_profile(n2)
     m0 = profile.display_name
