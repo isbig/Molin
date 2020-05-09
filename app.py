@@ -64,7 +64,7 @@ def handle_message(event):
         cur.close()
         conn.close()
 
-    def usinputcur():
+    def find_mess(sender):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
@@ -72,9 +72,12 @@ def handle_message(event):
         cur = conn.cursor()
 
         # from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
-        cur.execute("SELECT word FROM inputmes ORDER BY time DESC LIMIT 1;")
+        cur.execute("SELECT * "
+                    "FROM inputmes "
+                    "WHERE sender = %(sender)s"
+                    "ORDER BY time DESC LIMIT 1;", {'sender': sender})
         m = cur.fetchall()
-        n = str(m)[3:-4]
+        n = str(m)
         conn.commit()
         cur.close()
         conn.close()
@@ -94,12 +97,14 @@ def handle_message(event):
         cur.close()
         conn.close()
 
+    # https://stackoverflow.com/questions/13866926/is-there-a-list-of-pytz-timezones
     tz = pytz.timezone('Asia/Bangkok')
 
     n0 = event.message.text
     n1 = event.message.type
     n2 = event.source.user_id
     n3 = event.timestamp
+    # https://stackoverflow.com/questions/748491/how-do-i-create-a-datetime-in-python-from-milliseconds
     tln = datetime.datetime.fromtimestamp(n3 / 1000.0, tz=tz)
     inputmes(n2, "me", n1, n0, tln)
 
@@ -107,6 +112,8 @@ def handle_message(event):
     m0 = profile.display_name
     m1 = profile.status_message
     friends(n2, m0, m1)
+
+    print(find_mess(n2))
 
     o_list = [n0, "เธอส่งมา"]
     for word in o_list:
