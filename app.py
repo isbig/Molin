@@ -53,7 +53,7 @@ def handle_message(event):
             print("I am unable to connect to the database")
         cur = conn.cursor()
 
-        cur.execute("SET TIMEZONE TO Asia/Bangkok")
+        cur.execute("SET TIMEZONE 'Asia/Bangkok';")
 
         cur.execute("INSERT INTO inputmes (sender, receiver, type, word, time_pgql, date_pgql) VALUES (%(sender)s, %(receiver)s, "
                     "%(type)s, %(word)s, NOW(), NOW());", {'sender': sender, 'receiver': receiver, 'type': passage, 'word': text})
