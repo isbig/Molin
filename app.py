@@ -111,8 +111,8 @@ def handle_message(event):
         cur = conn.cursor()
 
         cur.execute("UPDATE inputmes"
-                    "SET ans_state = '%(looked)s'"
-                    "WHERE time_pql = %(int)s;", {'looked': looked, 'int': ts})
+                    "WHERE time_pql = %(int)s"
+                    "SET ans_state = %(looked)s;", {'looked': looked, 'int': ts})
         conn.commit()
 
         cur.close()
@@ -153,6 +153,7 @@ def handle_message(event):
         if nee2[n][0] == n2 and nee2[n][6] != 'answered':
             not_ans_yet.append(nee2[n][2])
             # ได้ประโยคที่เรายังไม่ตอบมา พอได้มาก็เลเบลว่าตอบแล้ว โดยใช้ค้นหา timestamp ที่ตรงกันให้ inputmes
+            print(nee2[n][5])
             answered_text('answered', nee2[n][5])
         else:
             pass
