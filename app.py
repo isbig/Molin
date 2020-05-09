@@ -65,7 +65,7 @@ def handle_message(event):
         cur.close()
         conn.close()
 
-    def find_mess(sender):
+    def find_mess(sender, back):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
@@ -76,7 +76,7 @@ def handle_message(event):
         cur.execute("SELECT * "
                     "FROM inputmes "
                     "WHERE sender = %(sender)s"
-                    "ORDER BY time_ln DESC LIMIT 1;", {'sender': sender})
+                    "ORDER BY time_ln DESC LIMIT %(back)s;", {'sender': sender, 'back': back})
         m = cur.fetchall()
         n = str(m)
         conn.commit()
@@ -114,7 +114,7 @@ def handle_message(event):
     m1 = profile.status_message
     friends(n2, m0, m1)
 
-    nee = find_mess(n2)
+    nee = find_mess(n2, 5)
     print(type(nee))
     e1, e2, e3, e4, e5, e6 = nee[0]
     print(e1)
@@ -124,7 +124,7 @@ def handle_message(event):
     print(e5)
     print(e6)
     time.sleep(5)
-    nee2 = find_mess(n2)
+    nee2 = find_mess(n2 ,5)
     h1, h2, h3, h4, h5, h6 = nee2[0]
 
     if e5 == h5:
