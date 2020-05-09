@@ -110,8 +110,8 @@ def handle_message(event):
             print("I am unable to connect to the database")
         cur = conn.cursor()
 
-        cur.execute("UPDATE inputmes"
-                    "WHERE time_pql = %(int)s"
+        cur.execute("UPDATE inputmes "
+                    "WHERE time_pql = %(int)s "
                     "SET ans_state = %(looked)s;", {'looked': looked, 'int': ts})
         conn.commit()
 
