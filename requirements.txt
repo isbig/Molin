@@ -12,4 +12,5 @@ chatterbot
 psycopg2
 pytz
 pythainlp
+attacut>=1.0.6
 pythainlp[attacut]
