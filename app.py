@@ -158,7 +158,8 @@ def handle_message(event):
 
     noam = find_mess(n2, "me", 5, 1)
     h1, h2, h3, h4, h5, h6, h7 = noam[0]
-    o_list = ['ทดสอบ', noam[0][3]]
+    token_sente = word_tokenize(noam[0][3], engine='attacut')
+    o_list = ['ทดสอบ', str(token_sente)]
 
     if e5 == h5:
         o_list_tsm = []
