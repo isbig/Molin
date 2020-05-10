@@ -10,5 +10,5 @@ Werkzeug>=0.15
 setuptools>=41.0.0
 line-bot-sdk
 psycopg2-binary
-cutkum
+deepcut
 wit
