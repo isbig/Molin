@@ -10,6 +10,8 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, FileMessage
 )
 
+from pythainlp import word_tokenize
+
 import psycopg2
 import datetime
 import pytz
@@ -117,6 +119,22 @@ def handle_message(event):
 
         cur.close()
         conn.close()
+
+    def word_type(tw):
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+
+        cur.execute("SELECT * "
+                    "FROM word_data "
+                    "WHERE (word_type = %(int)s;", {'int': tw})
+        m = cur.fetchall()
+        conn.commit()
+        cur.close()
+        conn.close()
+        return m
 
     # https://stackoverflow.com/questions/13866926/is-there-a-list-of-pytz-timezones
     tz = pytz.timezone('Asia/Bangkok')
