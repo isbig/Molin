@@ -135,29 +135,12 @@ def handle_message(event):
     friends(n2, m0, m1)
 
     nee = find_mess(n2, "me", 5, 2)
-    print(type(nee))
     e1, e2, e3, e4, e5, e6, e7 = nee[0]
-    print(e1)
-    print(e2)
-    print(e3)
-    print(e4)
-    print(e5)
-    print(e6)
     time.sleep(2)
 
-    noan = find_mess(n2, "me", 5, 1)
-    h1, h2, h3, h4, h5, h6, h7 = noan[0]
-    o_list = ['ทดสอบ', noan[0][3]]
-    ared = []
-    for s in range(5):
-        if s != 4:
-            if noan[s][6] == noan[s+1][6]:
-                o_list.append(noan[s+1][3])
-                ared.append(noan[s+1][4])
-            else:
-                pass
-        else:
-            pass
+    noam = find_mess(n2, "me", 5, 1)
+    h1, h2, h3, h4, h5, h6, h7 = noam[0]
+    o_list = ['ทดสอบ', noam[0][3]]
 
     if e5 == h5:
         o_list_tsm = []
@@ -174,10 +157,6 @@ def handle_message(event):
     for word in o_list:
         now = datetime.datetime.now(tz=tz)
         inputmes("me", n2, "no need to know", word, now, 'no')
-
-    # คำที่เอาไปวิเคราะห์แล้ว
-    for n in ared:
-        answered_text('answered', n)
 
 
 if __name__ == "__main__":
