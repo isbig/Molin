@@ -119,7 +119,7 @@ def handle_message(event):
         cur.close()
         conn.close()
 
-    def word_type(tw):
+    def word_type():
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         except:
@@ -127,8 +127,7 @@ def handle_message(event):
         cur = conn.cursor()
 
         cur.execute("SELECT * "
-                    "FROM word_data "
-                    "WHERE word_type = %(int)s;", {'int': tw})
+                    "FROM word_data;")
         m = cur.fetchall()
         conn.commit()
         cur.close()
@@ -160,7 +159,14 @@ def handle_message(event):
 
     ama = Tokenizer(custom_dict='./custom_dictionary', engine='newmm')
     token_sente = ama.word_tokenize(noam[0][3])
-    o_list = ['ทดสอบการตัดคำที่ถูกต้อง', str(token_sente), str(word_type(2)[-3:-1])]
+
+    o_list = ['ทดสอบการตัดคำที่ถูกต้อง', str(token_sente), "คำกริยามีดังนี้"]
+    wortype = dict((x, y) for x, y in word_type())
+    for x in token_sente:
+        if wortype[x] == 2:
+            o_list.append(x)
+        else:
+            pass
 
     if e5 == h5:
         o_list_tsm = []
