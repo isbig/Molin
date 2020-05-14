@@ -128,7 +128,7 @@ def handle_message(event):
 
         cur.execute("SELECT * "
                     "FROM word_data "
-                    "WHERE (word_type = %(int)s;", {'int': tw})
+                    "WHERE word_type = %(int)s;", {'int': tw})
         m = cur.fetchall()
         conn.commit()
         cur.close()
