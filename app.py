@@ -160,7 +160,7 @@ def handle_message(event):
 
     ama = Tokenizer(custom_dict='./custom_dictionary', engine='newmm')
     token_sente = ama.word_tokenize(noam[0][3])
-    o_list = ['ทดสอบการตัดคำที่ถูกต้อง', str(token_sente)]
+    o_list = ['ทดสอบการตัดคำที่ถูกต้อง', str(token_sente), str(word_type(2)[-3:-1])]
 
     if e5 == h5:
         o_list_tsm = []
