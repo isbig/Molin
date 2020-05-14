@@ -164,13 +164,11 @@ def handle_message(event):
     wc = [x for x, y in word_type()]
 
     fwe = []
-    inter_word = list(set(token_sente) & set(wc))
-    for x in inter_word:
-        if wtp[x] == 2:
-            fwe.append(x)
+    for x in token_sente:
+        if x in wc:
+            fwe.append(x + " เป็นคำประเภทที่ " + str(wtp[x]))
         else:
-            pass
-
+            fwe.append(x + " ไม่ได้ถูกบันทึกว่าเป็นคำประเภทใด")
     o_list.append(str(fwe))
     if e5 == h5:
         o_list_tsm = []
