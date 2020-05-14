@@ -11,3 +11,4 @@ setuptools>=41.0.0
 line-bot-sdk
 psycopg2-binary
 pythainlp
+pytz
