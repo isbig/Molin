@@ -10,7 +10,7 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, FileMessage
 )
 
-from pythainlp.tokenize import word_tokenize
+from pythainlp.tokenize import Tokenizer
 import psycopg2
 import datetime
 import pytz
@@ -157,8 +157,10 @@ def handle_message(event):
 
     noam = find_mess(n2, "me", 5, 1)
     h1, h2, h3, h4, h5, h6, h7 = noam[0]
-    token_sente = word_tokenize(noam[0][3])
-    o_list = ['ทดสอบ', token_sente[0]]
+
+    ama = Tokenizer(custom_dict='./custom_dictionary', engine='newmm')
+    token_sente = ama.word_tokenize(noam[0][3])
+    o_list = ['ทดสอบการตัดคำที่ถูกต้อง', str(token_sente)]
 
     if e5 == h5:
         o_list_tsm = []
