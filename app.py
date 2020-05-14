@@ -161,9 +161,12 @@ def handle_message(event):
     token_sente = ama.word_tokenize(noam[0][3])
 
     o_list = ['ทดสอบการตัดคำที่ถูกต้อง', str(token_sente), "คำกริยามีดังนี้"]
-    wortype = dict((x, y) for x, y in word_type())
-    for x in token_sente:
-        if wortype[x] == 2:
+    wtp = dict((x, y) for x, y in word_type())
+    wc = [x for x, y in word_type()]
+
+    inter_word = list(set(token_sente) & set(wc))
+    for x in inter_word:
+        if wtp[x] == 2:
             o_list.append(x)
         else:
             pass
