@@ -163,13 +163,15 @@ def handle_message(event):
     wtp = dict((x, y) for x, y in word_type())
     wc = [x for x, y in word_type()]
 
+    fwe = []
     inter_word = list(set(token_sente) & set(wc))
     for x in inter_word:
         if wtp[x] == 2:
-            o_list.append(x)
+            fwe.append(x)
         else:
             pass
 
+    o_list.append(str(fwe))
     if e5 == h5:
         o_list_tsm = []
         for text in o_list:
