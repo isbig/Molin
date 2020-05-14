@@ -152,7 +152,6 @@ def handle_message(event):
 
     nee = find_mess(n2, "me", 5, 2)
     e1, e2, e3, e4, e5, e6, e7 = nee[0]
-    time.sleep(2)
 
     noam = find_mess(n2, "me", 5, 1)
     h1, h2, h3, h4, h5, h6, h7 = noam[0]
