@@ -183,7 +183,7 @@ def handle_message(event):
     for x in cut_kk:
         if x in wc:
             if wtp[x] == 2:
-                poom("poom2", wtp[x], "ไม่รู้", "ไม่รู้", k_rob)
+                poom("poom2", x, "DN", "DN", k_rob)
             else:
                 pass
         else:
