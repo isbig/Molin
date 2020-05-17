@@ -61,7 +61,7 @@ def handle_message(event):
         cur.execute("SET TIME ZONE 'Asia/Bangkok';")
 
         cur.execute(
-            "INSERT INTO %(p_name)s (uou, nk, lk, ku, tx) VALUES (%(uou)s, %(nk)s, %(lk)s, %(ku)s, NOW());", {'p_name': p_name,'uou': uou, 'nk': nk, 'lk': lk, 'ku': ku})
+            "INSERT INTO p_names (uou, nk, lk, ku, tx) VALUES (%(uou)s, %(nk)s, %(lk)s, %(ku)s, NOW());".replace("p_names", p_name), {'uou': uou, 'nk': nk, 'lk': lk, 'ku': ku})
         conn.commit()
 
         cur.close()
