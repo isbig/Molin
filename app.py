@@ -15,6 +15,7 @@ import psycopg2
 import datetime
 import pytz
 import time
+import random
 
 # -*- coding: utf-8 -*-
 import os
@@ -50,6 +51,22 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    def poom(p_name, uou, nk, lk, ku):
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        except:
+            print("I am unable to connect to the database")
+        cur = conn.cursor()
+
+        cur.execute("SET TIME ZONE 'Asia/Bangkok';")
+
+        cur.execute(
+            "INSERT INTO %(p_name)s (uou, nk, lk, ku, tx) VALUES (%(uou)s, %(nk)s, %(lk)s, %(ku)s, NOW());", {'p_name': p_name,'uou': uou, 'nk': nk, 'lk': lk, 'ku': ku})
+        conn.commit()
+
+        cur.close()
+        conn.close()
+
     def inputmes(sender, receiver, passage, text, time_ln, ans_state):
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -144,6 +161,33 @@ def handle_message(event):
     # https://stackoverflow.com/questions/748491/how-do-i-create-a-datetime-in-python-from-milliseconds
     tln = datetime.datetime.fromtimestamp(n3 / 1000.0, tz=tz)
     inputmes(n2, "me", n1, n0, tln, 'no')
+
+    # บันทึกเหตุการณ์
+    # https://stackoverflow.com/questions/5998245/get-current-time-in-milliseconds-in-python
+    def current_milli_time():
+        return int(round(time.time() * 1000))
+    ran_in = random.randint(0, 9)
+    k_rob = str(current_milli_time())+str(ran_in)
+    poom("poom", "ส่งหา", n2, "me", k_rob)
+    if n1 == "text":
+        poom("poom", "ส่ง", n2, "ข้อความ", k_rob)
+        poom("poom", "คือ", "ข้อความ", n0, k_rob)
+    else:
+        # ยังไม่รู้จักอย่างอื่นนอกจากข้อความ
+        pass
+
+    ama = Tokenizer(custom_dict='./custom_dictionary', engine='newmm')
+    cut_kk = ama.word_tokenize(n0)
+    wtp = dict((x, y) for x, y in word_type())
+    wc = [x for x, y in word_type()]
+    for x in cut_kk:
+        if x in wc:
+            if wtp[x] == 2:
+                poom("poom2", wtp[x], "ไม่รู้", "ไม่รู้", k_rob)
+            else:
+                pass
+        else:
+            pass
 
     profile = line_bot_api.get_profile(n2)
     m0 = profile.display_name
