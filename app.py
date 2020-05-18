@@ -226,7 +226,7 @@ def handle_message(event):
     else:
         pass
 
-    uoi = DBcon.Dbconnect()
+    uoi = DBcon.Dbconnect(DATABASE_URL)
     # คำที่ส่งไปแล้ว
     for word in o_list:
         now = datetime.datetime.now(tz=tz)

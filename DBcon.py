@@ -1,15 +1,10 @@
 import psycopg2
 import os
-import config
 
 
 class Dbconnect:
-    def __init__(self):
-        try:
-            database_url = config.DATABASE_URL
-        except psycopg2.OperationalError:
-            database_url = os.getenv('DATABASE_URL')
-        self.conn = psycopg2.connect(database_url, sslmode='require')
+    def __init__(self, db_url):
+        self.conn = psycopg2.connect(db_url, sslmode='require')
         self.cur = self.conn.cursor()
 
     def poom(self, p_name, uou, nk, lk, ku):
