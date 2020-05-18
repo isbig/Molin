@@ -19,6 +19,7 @@ import random
 
 # -*- coding: utf-8 -*-
 import os
+import DBcon as dbc
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 AccessToken = os.getenv('AccessToken')
@@ -228,7 +229,7 @@ def handle_message(event):
     # คำที่ส่งไปแล้ว
     for word in o_list:
         now = datetime.datetime.now(tz=tz)
-        inputmes("me", n2, "no need to know", word, now, 'no')
+        dbc.inputmes("me", n2, "no need to know", word, now, 'ส่งไป')
 
 
 if __name__ == "__main__":
