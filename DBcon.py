@@ -3,6 +3,7 @@ import psycopg2
 
 class DataConnect:
     def __init__(self, db_url):
+        self.db_url = db_url
         self.conn = psycopg2.connect(db_url, sslmode='require')
         self.cur = self.conn.cursor()
 
@@ -14,8 +15,6 @@ class DataConnect:
                 p_name),
             {'uou': uou, 'nk': nk, 'lk': lk, 'ku': ku})
         self.conn.commit()
-        self.cur.close()
-        self.conn.close()
 
     def inputmes(self, sender, receiver, passage, text, time_ln, ans_state):
         self.cur.execute("SET TIME ZONE 'Asia/Bangkok';")
@@ -26,9 +25,6 @@ class DataConnect:
             {'sender': sender, 'receiver': receiver, 'type': passage, 'word': text, 'time_ln': time_ln,
              'ans_state': ans_state})
         self.conn.commit()
-
-        self.cur.close()
-        self.conn.close()
 
     def find_mess(self, sender, receiver, back, bon):
         # from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
@@ -44,8 +40,6 @@ class DataConnect:
                         "ORDER BY time_ln DESC LIMIT %(back)s;", {'sender': sender, 'receiver': receiver, 'back': back})
         m = self.cur.fetchall()
         self.conn.commit()
-        self.cur.close()
-        self.conn.close()
         return m
 
     def friends(self, user_id, display_name, status_message):
@@ -54,23 +48,56 @@ class DataConnect:
                     {'user_id': user_id, 'display_name': display_name, 'status_message': status_message})
         self.conn.commit()
 
-        self.cur.close()
-        self.conn.close()
-
     def answered_text(self, looked, ts):
         self.cur.execute("UPDATE inputmes "
                     "SET ans_state = %(looked)s "
                     "WHERE time_pql = %(int)s;", {'looked': looked, 'int': ts})
         self.conn.commit()
 
-        self.cur.close()
-        self.conn.close()
-
     def word_type(self):
         self.cur.execute("SELECT * "
                     "FROM word_data;")
         m = self.cur.fetchall()
         self.conn.commit()
+        return m
+
+    def close_con(self):
         self.cur.close()
         self.conn.close()
+
+
+class FinePum:
+    def __init__(self, db_url):
+        self.conn = psycopg2.connect(db_url, sslmode='require')
+        self.cur = self.conn.cursor()
+
+    # หาหน่วยย่อยล่าสุดที่เกี่ยวกับสิ่ง ๆ หนึ่ง
+    def find_last_ks(self, fw):
+        # from https://stackoverflow.com/questions/6267887/get-last-record-of-a-table-in-postgres
+        self.cur.execute("SELECT * "
+                         "FROM poom "
+                         "WHERE nk = %(fw)s or lk = %(fw)s "
+                         "ORDER BY tx DESC LIMIT %(back)s;", {'fw': fw, 'back': 1})
+        m = self.cur.fetchall()
+        self.conn.commit()
         return m
+
+    # หากรอบล่าสุดที่เกี่ยวกับสิ่ง ๆ หนึ่ง
+    def find_ks_name(self, fw):
+        a = self.find_last_ks(fw)
+        a1, a2, a3, a4, a5 = a[0]
+        return a4
+
+    # หาหน่วยย่อยโดยใช้กรอบ จะได้หน่วยย่อยทั้งหมดที่มีกรอบเดียวกัน
+    def find_pum(self, ks):
+        self.cur.execute("SELECT * "
+                         "FROM poom "
+                         "WHERE ku = %(ku)s;", {'ku': ks})
+        m = self.cur.fetchall()
+        self.conn.commit()
+        return m
+
+    def close_con(self):
+        self.cur.close()
+        self.conn.close()
+

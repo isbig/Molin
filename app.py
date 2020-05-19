@@ -58,7 +58,13 @@ def handle_message(event):
     n2 = event.source.user_id
     n3 = event.timestamp
 
+    profile = line_bot_api.get_profile(n2)
+    m0 = profile.display_name
+    m1 = profile.status_message
+
     uoi = DBcon.DataConnect(DATABASE_URL)
+
+    uoi.friends(n2, m0, m1)
 
     # https://stackoverflow.com/questions/13866926/is-there-a-list-of-pytz-timezones
     tz = pytz.timezone('Asia/Bangkok')
@@ -73,8 +79,11 @@ def handle_message(event):
     # https://stackoverflow.com/questions/5998245/get-current-time-in-milliseconds-in-python
     def current_milli_time():
         return int(round(time.time() * 1000))
+
+    # สร้างกรอบ
     ran_in = random.randint(0, 9)
     k_rob = str(current_milli_time())+str(ran_in)
+
     uoi.poom("poom", "ส่งหา", n2, "me", k_rob)
     if n1 == "text":
         uoi.poom("poom", "ส่ง", n2, "ข้อความ", k_rob)
@@ -96,11 +105,6 @@ def handle_message(event):
         else:
             pass
 
-    profile = line_bot_api.get_profile(n2)
-    m0 = profile.display_name
-    m1 = profile.status_message
-    uoi.friends(n2, m0, m1)
-
     nee = uoi.find_mess(n2, "me", 5, 2)
     e1, e2, e3, e4, e5, e6, e7 = nee[0]
 
@@ -111,11 +115,11 @@ def handle_message(event):
     token_sent = ama.word_tokenize(noam[0][3])
 
     o_list = ['ทดสอบการตัดคำที่ถูกต้อง', str(token_sent), "คำกริยามีดังนี้"]
-    wtp = dict((x, y) for x, y in word_type())
-    wc = [x for x, y in word_type()]
+    wtp = dict((x, y) for x, y in uoi.word_type())
+    wc = [x for x, y in uoi.word_type()]
 
     fwe = []
-    for x in token_sente:
+    for x in token_sent:
         if x in wc:
             fwe.append(x + " เป็นคำประเภทที่ " + str(wtp[x]))
         else:
@@ -132,10 +136,15 @@ def handle_message(event):
     else:
         pass
 
-    # คำที่ส่งไปแล้ว
+    # เก็บคำที่ส่งไปแล้วในฐานข้อมูล
+    k_rob = str(current_milli_time()) + str(ran_in)
     for word in o_list:
         now = datetime.datetime.now(tz=tz)
         uoi.inputmes("me", n2, "no need to know", word, now, 'ส่งไป')
+    uoi.poom("poom", "ส่ง", "me", "ข้อความ", k_rob)
+    uoi.poom("poom", "คือ", "ข้อความ", " และ ".join(o_list), k_rob)
+
+    uoi.close_con()
 
 
 if __name__ == "__main__":
