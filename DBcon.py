@@ -7,13 +7,11 @@ class DataConnect:
         self.conn = psycopg2.connect(db_url, sslmode='require')
         self.cur = self.conn.cursor()
 
-    def poom(self, p_name, uou, nk, lk, ku):
+    def poom(self, poom_num, uou, nk, lk, ku):
         self.cur.execute("SET TIME ZONE 'Asia/Bangkok';")
         self.cur.execute(
-            "INSERT INTO p_names (uou, nk, lk, ku, tx) VALUES (%(uou)s, %(nk)s, %(lk)s, %(ku)s, NOW());".replace(
-                "p_names",
-                p_name),
-            {'uou': uou, 'nk': nk, 'lk': lk, 'ku': ku})
+            "INSERT INTO poom (uou, nk, lk, ku, tx, poom_num) VALUES (%(uou)s, %(nk)s, %(lk)s, %(ku)s, NOW(), "
+            "%(poom)s);", {'uou': uou, 'nk': nk, 'lk': lk, 'ku': ku, 'poom': poom_num})
         self.conn.commit()
 
     def inputmes(self, sender, receiver, passage, text, time_ln, ans_state):
@@ -85,7 +83,7 @@ class FinePum:
     # หากรอบล่าสุดที่เกี่ยวกับสิ่ง ๆ หนึ่ง
     def find_ks_name(self, fw):
         a = self.find_last_ks(fw)
-        a1, a2, a3, a4, a5 = a[0]
+        a1, a2, a3, a4, a5, a6 = a[0]
         return a4
 
     # หาหน่วยย่อยโดยใช้กรอบ จะได้หน่วยย่อยทั้งหมดที่มีกรอบเดียวกัน

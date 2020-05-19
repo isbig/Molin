@@ -84,10 +84,10 @@ def handle_message(event):
     ran_in = random.randint(0, 9)
     k_rob = str(current_milli_time())+str(ran_in)
 
-    uoi.poom("poom", "ส่งหา", n2, "me", k_rob)
+    uoi.poom(1, "ส่งหา", n2, "me", k_rob)
     if n1 == "text":
-        uoi.poom("poom", "ส่ง", n2, "ข้อความ", k_rob)
-        uoi.poom("poom", "คือ", "ข้อความ", n0, k_rob)
+        uoi.poom(1, "ส่ง", n2, "ข้อความ", k_rob)
+        uoi.poom(1, "คือ", "ข้อความ", n0, k_rob)
     else:
         # ยังไม่รู้จักอย่างอื่นนอกจากข้อความ
         pass
@@ -99,7 +99,7 @@ def handle_message(event):
     for x in cut_kk:
         if x in wc:
             if wtp[x] == 2:
-                uoi.poom("poom2", x, "DN", "DN", k_rob)
+                uoi.poom(1, x, "DN", "DN", k_rob)
             else:
                 pass
         else:
@@ -141,8 +141,8 @@ def handle_message(event):
     for word in o_list:
         now = datetime.datetime.now(tz=tz)
         uoi.inputmes("me", n2, "no need to know", word, now, 'ส่งไป')
-    uoi.poom("poom", "ส่ง", "me", "ข้อความ", k_rob)
-    uoi.poom("poom", "คือ", "ข้อความ", " และ ".join(o_list), k_rob)
+    uoi.poom(1, "ส่ง", "me", "ข้อความ", k_rob)
+    uoi.poom(1, "คือ", "ข้อความ", " และ ".join(o_list), k_rob)
 
     uoi.close_con()
 
