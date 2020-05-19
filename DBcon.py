@@ -1,8 +1,7 @@
 import psycopg2
-import os
 
 
-class Dbconnect:
+class DataConnect:
     def __init__(self, db_url):
         self.conn = psycopg2.connect(db_url, sslmode='require')
         self.cur = self.conn.cursor()
