@@ -11,7 +11,6 @@ from linebot.models import (
 )
 
 from pythainlp.tokenize import Tokenizer
-import psycopg2
 import datetime
 import pytz
 import time

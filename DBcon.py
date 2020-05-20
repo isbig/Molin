@@ -95,7 +95,10 @@ class FinePum:
         self.conn.commit()
         return m
 
+    # หาหน่วยย่อยทั้งหมดในกรอบล่าสุดที่เกี่ยวกับสิ่ง ๆ หนึ่ง หรือคน ๆ หนึ่ง
+    def last_ks(self, who):
+        return self.find_pum(self.find_ks_name(who))
+
     def close_con(self):
         self.cur.close()
         self.conn.close()
-
