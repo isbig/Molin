@@ -9,13 +9,9 @@ def upload_file():
 @app.route("/", methods=['POST', 'GET'])
 def callback():
     # get X-Line-Signature header value
-    signature = request.headers['X-Goog-Resource-State']
-    body = request.get_data(as_text=True)
+    signature = request.headers['X-Goog-Resource-State', 'X-Goog-Resource-URI', 'X-Goog-Channel-ID']
     print(signature)
-    print(body)
     return '200'
-
-
 
 if __name__ == '__main__':
     app.run()
