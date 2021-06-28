@@ -29,10 +29,12 @@ app = Flask(__name__)
 line_bot_api = LineBotApi(AccessToken)
 handler = WebhookHandler(ChannelSecret)
 
+
 @app.route('/')
 def home():
-    
-    return render_template('googleff9deb20e4a46255.html')
+    with open('googleff9deb20e4a46255.html') as gf:
+        return gf
+
 
 @app.route("/callback", methods=['POST'])
 def callback():
