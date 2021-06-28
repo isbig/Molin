@@ -6,7 +6,7 @@ app = Flask(__name__)
 def upload_file():
     return 'google-site-verification: googleff9deb20e4a46255.html'
 
-@app.route("/", methods=['POST'])
+@app.route("/", methods=['POST', 'GET'])
 def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Goog-Resource-State']
