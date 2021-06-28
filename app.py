@@ -30,11 +30,13 @@ line_bot_api = LineBotApi(AccessToken)
 handler = WebhookHandler(ChannelSecret)
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def upload_file():
-    uploaded_file = request.files['googleff9deb20e4a46255.html']
-    if uploaded_file.filename != '':
-        uploaded_file.save(uploaded_file.filename)
+    f = ''
+    if request.method == 'POST':
+        f = request.files['googleff9deb20e4a46255.html']
+        f.save('/var/www/googleff9deb20e4a46255.html')
+    return f
 
 
 @app.route("/callback", methods=['POST'])
