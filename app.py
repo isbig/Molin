@@ -13,8 +13,10 @@ def callback():
     print(state)
     uri = request.headers['X-Goog-Resource-URI']
     id = request.headers['X-Goog-Channel-ID']
+    reid = request.headers['X-Goog-Resource-URI']
     print(uri)
     print(id)
+    print(reid)
     return '200'
 
 if __name__ == '__main__':
