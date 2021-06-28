@@ -31,9 +31,10 @@ handler = WebhookHandler(ChannelSecret)
 
 
 @app.route('/')
-def home():
-    with open('googleff9deb20e4a46255.html') as gf:
-        return gf
+def upload_file():
+    uploaded_file = request.files['googleff9deb20e4a46255.html']
+    if uploaded_file.filename != '':
+        uploaded_file.save(uploaded_file.filename)
 
 
 @app.route("/callback", methods=['POST'])
