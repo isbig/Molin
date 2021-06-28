@@ -13,7 +13,7 @@ def callback():
     body = request.get_data(as_text=True)
     print(signature)
     print(body)
-    return signature, body
+    return '200'
 
 
 
