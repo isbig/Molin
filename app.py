@@ -31,7 +31,8 @@ handler = WebhookHandler(ChannelSecret)
 
 @app.route('/')
 def home():
-   return render_template('googleff9deb20e4a46255.html')
+    
+    return render_template('googleff9deb20e4a46255.html')
 
 @app.route("/callback", methods=['POST'])
 def callback():
