@@ -39,10 +39,6 @@ def callback():
     print(reid)
     return '200'
 
-@app.route('/googleff9deb20e4a46255.html')
-def upload_file():
-    return 'google-site-verification: googleff9deb20e4a46255.html'
-
 
 @app.route("/callback", methods=['POST'])
 def callback():
