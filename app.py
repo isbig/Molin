@@ -10,15 +10,8 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, FileMessage, FlexSendMessage
 )
 
-from pythainlp.tokenize import Tokenizer
-import datetime
-import pytz
-import time
-import random
-
 # -*- coding: utf-8 -*-
 import os
-import DBcon
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 AccessToken = os.getenv('AccessToken')
