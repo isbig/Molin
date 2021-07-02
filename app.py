@@ -81,7 +81,7 @@ def handle_message(event):
         "text": "Miraina Tกหดกหฟดหกกหฟหดฟหหกดฟกหฟกหฟกหฟกหกหฟหกกหฟหกฟกหฟower, 4-1-6 Shinjuku, Tokyo\n กหดฟดหฟ",
         "size": "sm",
         "color": "#aaaaaa",
-        "wrap": true
+        "wrap": True
       },
       {
         "type": "separator"
@@ -101,7 +101,7 @@ def handle_message(event):
   },
   "styles": {
     "footer": {
-      "separator": true
+      "separator": True
     }
   }
 }
