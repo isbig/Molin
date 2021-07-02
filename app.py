@@ -64,17 +64,47 @@ def handle_message(event):
     flex_message = FlexSendMessage(
         alt_text='hello',
         contents={
-            'type': 'bubble',
-            'direction': 'ltr',
-            'hero': {
-                'type': 'image',
-                'url': 'https://example.com/cafe.jpg',
-                'size': 'full',
-                'aspectRatio': '20:13',
-                'aspectMode': 'cover',
-                'action': {'type': 'uri', 'uri': 'http://example.com', 'label': 'label'}
-            }
-        }
+  "type": "bubble",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "Brown Store",
+        "weight": "bold",
+        "size": "xxl",
+        "margin": "md"
+      },
+      {
+        "type": "text",
+        "text": "Miraina Tกหดกหฟดหกกหฟหดฟหหกดฟกหฟกหฟกหฟกหกหฟหกกหฟหกฟกหฟower, 4-1-6 Shinjuku, Tokyo\n กหดฟดหฟ",
+        "size": "sm",
+        "color": "#aaaaaa",
+        "wrap": true
+      },
+      {
+        "type": "separator"
+      },
+      {
+        "type": "separator",
+        "margin": "xxl"
+      },
+      {
+        "type": "separator",
+        "margin": "xxl"
+      },
+      {
+        "type": "separator"
+      }
+    ]
+  },
+  "styles": {
+    "footer": {
+      "separator": true
+    }
+  }
+}
     )
     line_bot_api.reply_message(
         event.reply_token,
