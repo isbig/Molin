@@ -41,7 +41,7 @@ def callback():
 
 
 @app.route("/callback", methods=['POST'])
-def callback():
+def webhook():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
