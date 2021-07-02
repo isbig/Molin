@@ -10,3 +10,4 @@ Werkzeug>=0.15
 setuptools>=41.0.0
 line-bot-sdk
 pythainlp
+pytz

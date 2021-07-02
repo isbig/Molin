@@ -29,8 +29,6 @@ app = Flask(__name__)
 line_bot_api = LineBotApi(AccessToken)
 handler = WebhookHandler(ChannelSecret)
 
-app = Flask(__name__)
-
 @app.route('/googleff9deb20e4a46255.html')
 def upload_file():
     return 'google-site-verification: googleff9deb20e4a46255.html'
