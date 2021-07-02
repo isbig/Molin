@@ -64,51 +64,40 @@ def handle_message(event):
     flex_message = FlexSendMessage(
         alt_text='hello',
         contents={
-  "type": "bubble",
-  "body": {
-    "type": "box",
-    "layout": "vertical",
-    "contents": [
-      {
-        "type": "text",
-        "text": "Brown Store",
-        "weight": "bold",
-        "size": "xxl",
-        "margin": "md"
-      },
-      {
-        "type": "text",
-        "text": "Miraina Tกหดกหฟดหกกหฟหดฟหหกดฟกหฟกหฟกหฟกหกหฟหกกหฟหกฟกหฟower, 4-1-6 Shinjuku, Tokyo\n กหดฟดหฟ",
-        "size": "sm",
-        "color": "#aaaaaa",
-        "wrap": True
-      },
-      {
-        "type": "separator"
-      },
-      {
-        "type": "separator",
-        "margin": "xxl"
-      },
-      {
-        "type": "separator",
-        "margin": "xxl"
-      },
-      {
-        "type": "separator"
-      }
-    ]
-  },
-  "styles": {
-    "footer": {
-      "separator": True
-    }
-  }
-}
+            "type": "bubble",
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "text",
+                        "text": "Brown Store",
+                        "weight": "bold",
+                        "size": "xxl",
+                        "margin": "md"
+                    },
+                    {
+                        "type": "text",
+                        "text": "Miraina Tกหดกหฟดหกกหฟหดฟหหกดฟกหฟกหฟกหฟกหกหฟหกกหฟหกฟกหฟower, 4-1-6 Shinjuku, Tokyo\n กหดฟดหฟ",
+                        "size": "sm",
+                        "color": "#aaaaaa",
+                        "wrap": True
+                    },
+                    {
+                        "type": "separator"
+                    }
+                ]
+            },
+            "styles": {
+                "footer": {
+                    "separator": True
+                }
+            }
+        }
     )
     line_bot_api.reply_message(
         event.reply_token,
-        flex_message)
+        [flex_message, flex_message])
 
 
 if __name__ == '__main__':
